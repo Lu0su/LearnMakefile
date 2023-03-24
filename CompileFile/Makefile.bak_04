@@ -1,0 +1,24 @@
+#使用便利
+OBJ=add.o sub.o multi.o calculate.o
+TARGET=calculate
+
+#$^将作为指定目标的替代,￥@将作为指定依赖的替代
+# 生成最终的目标文件时就不要使用-c参数了
+${TARGET}:${OBJ}
+	g++ $^ -o $@
+
+add.o:add.cpp
+	g++ -c $^ -o $@
+
+sub.o:sub.cpp
+	g++ -c $^ -o $@
+
+multi.o:multi.cpp
+	g++ -c $^ -o $@
+
+#这里将calculate.cpp也事先编译为了.o文件
+calculate.o:calculate.cpp
+	g++ -c $^ -o $@
+
+clean:
+	rm -f *.o ${TARGET} 

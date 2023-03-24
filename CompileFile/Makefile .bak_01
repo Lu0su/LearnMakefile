@@ -1,0 +1,22 @@
+# 我们不应该这样将全部的文件在一行统一编译
+# 因为如果对其中一个文件进行修改就需要将全部的文件重新编译.
+# calculate:
+# 	g++ add.cpp sub.cpp multi.cpp calculate.cpp -o calculate.out
+
+#这里处理的都是目标，而非每次编译生存的目标文件的名字
+#记得使用g++， 而非gcc
+#这样分条编译，第二次编译后只会编译有改动的文件.
+calculate:add.o sub.o multi.o
+	g++ add.o sub.o multi.o calculate.cpp -o calculate
+
+add.o:add.cpp
+	g++ -c add.cpp -o add.o
+
+sub.o:sub.cpp
+	g++ -c sub.cpp -o sub.o
+
+multi.o:multi.cpp
+	g++ -c multi.cpp -o multi.o
+
+clean:
+	rm -f add.o sub.o multi.o
